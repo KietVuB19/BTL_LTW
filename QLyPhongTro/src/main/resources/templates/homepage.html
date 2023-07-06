@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Homepage</title>
+	<style>
+		.mt {
+			margin-top: 50px;	
+		}
+		body{
+			background-image:  url("../img/download.jpg") repeat 0 0;
+			background-color: darkcyan;
+			color: cornsilk;
+		}
+		h1{
+			text-align: center;
+		}
+		.topNavbar{
+  			overflow: hidden;
+  			background-color: #333;
+		}
+		.topNavbar a {
+		  	float: left;
+		  	color: #f2f2f2;
+		 	text-align: center;
+		  	padding: 14px 16px;
+		  	text-decoration: none;
+		 	font-size: 17px;
+		}
+		a:hover{
+			background-color: forestgreen;
+		}
+	</style>
+</head>
+
+<body>
+	<span th:if="${account}" th:switch="${account.roles}">		
+		<span th:case="ROLE_USER">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+				<a th:href="@{/booking/list}" th:text="'Danh sách đặt phòng'"></a>
+				<a th:href="@{/room}" th:text="'Xem danh sách phòng'"></a>
+			</div>	
+		</span>
+		
+		<span th:case="ROLE_ADMIN">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+				<a th:href="@{/account/list}" th:text="'Quản lý tài khoản'"></a>
+			</div>
+		</span>
+			<span th:case="ROLE_MANAGER">
+				<div class="topNavbar">
+					<a th:href="@{/}" th:text="'Trang chủ'"></a>
+					<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+					<a th:href="@{/manage/room}" th:text="'Quản lý phòng'"></a>
+				</div>
+			</span>
+		</span>
+		<span th:unless="${account}">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/login}" th:text="'Đăng nhập'"></a>
+				<a th:href="@{/account/submitInfo}" th:text="'Đăng kí'"></a>
+				<a th:href="@{/room}" th:text="'Xem danh sách phòng'"></a>
+			</div>
+		</span>
+	<h1>Welcome <span th:if="${account}" th:text="${account.username}"></span>!</h1>
+	<div class="back">
+		
+	</div>
+</body>
+
+</html>

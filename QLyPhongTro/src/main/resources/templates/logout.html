@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+
+<head>
+	<title>Logout</title>
+	<style>
+		body{
+			background-color: darkcyan;
+			color: darkcyan;	
+		}
+		body .logOut{
+			align-items: center;
+			padding-right: 30%;
+    		padding-left: 30%;
+		}
+		h1{
+			padding-top: 20px;
+			text-align: center;
+			font-size: xx-large;
+		}
+		table{
+			width: 100%;
+		}
+		.logOut{
+			background-color: lightgray;
+			padding-right: 15px;
+    		padding-left: 15px;
+    		margin: 25px;
+    		border-radius: 5px;
+		}
+		input{
+			background-color: darkcyan;
+			color: white;
+			height: 30px;
+			width: 90px;
+			margin-left: 20%;
+			margin-bottom: 20px;
+			margin-top: 20px;
+			border-radius: 5px;
+		}
+		a, a:visited,a:hover, a:active{
+			text-decoration: none;
+			color: inherit; 	
+		}
+		.sub{
+			display: inline-block;
+		}
+		.topNavbar{
+  			overflow: hidden;
+  			background-color: #333;
+		}
+		.topNavbar a {
+		  	float: left;
+		  	color: #f2f2f2;
+		 	text-align: center;
+		  	padding: 14px 16px;
+		  	text-decoration: none;
+		 	font-size: 17px;
+		}
+		.topNavbar a:hover{
+			background-color: forestgreen;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="topNavbar">
+	<span th:if="${account}" th:switch="${account.roles}">		
+		<span th:case="ROLE_USER">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+				<a th:href="@{/booking/list}" th:text="'Danh sách đặt phòng'"></a>
+				<a th:href="@{/room}" th:text="'Xem danh sách phòng'"></a>
+			</div>	
+		</span>
+		
+		<span th:case="ROLE_ADMIN">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+				<a th:href="@{/account/list}" th:text="'Quản lý tài khoản'"></a>
+			</div>
+		</span>
+			<span th:case="ROLE_MANAGER">
+				<div class="topNavbar">
+					<a th:href="@{/}" th:text="'Trang chủ'"></a>
+					<a th:href="@{/account}" th:text="'Tài khoản'"></a>
+					<a th:href="@{/manage/room}" th:text="'Quản lý phòng'"></a>
+				</div>
+			</span>
+		</span>
+		<span th:unless="${account}">
+			<div class="topNavbar">
+				<a th:href="@{/}" th:text="'Trang chủ'"></a>
+				<a th:href="@{/login}" th:text="'Đăng nhập'"></a>
+				<a th:href="@{/account/submitInfo}" th:text="'Đăng kí'"></a>
+				<a th:href="@{/room}" th:text="'Xem danh sách phòng'"></a>
+			</div>
+		</span>
+	</div>
+	
+	<div class="logOut">
+	<h1>Bạn chắc chắn muốn đăng xuất?</h1>
+		<table>
+			<tr>
+				<td><form th:action="logout" method="post">
+					<input type="submit" value="Đăng xuất">
+					</form>
+				</td>
+				<td><form th:action="@{/}" method="get">
+						<input type="submit" value="Không">		
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

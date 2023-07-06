@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Thông tin phòng</title>
+	<style>
+		body{
+			background-color: darkcyan;
+			color: darkcyan;
+			align-items: center;
+			padding-right: 30%;
+    		padding-left: 30%;
+		}
+		h1{
+			text-align: center;
+			font-size: xx-large;
+		}
+		
+		.roomInfo{
+			background-color: lightgray;
+			padding-right: 15px;
+    		padding-left: 15px;
+    		margin: 25px;
+    		border-radius: 5px;
+		}
+		button, input[type="submit"]{
+			background-color: darkcyan;
+			color: white;
+			height: 30px;
+			width: max-content;
+			margin-left: 20%;
+			margin-bottom: 20px;
+			margin-top: 20px;
+			border-radius: 5px;
+		}
+		a, a:visited, a:hover, a:active{
+			text-decoration: none;
+			color: inherit; 	
+		}
+	</style>
+</head>
+
+<body>
+	<div class="roomInfo">
+	<h1>Thông tin phòng <span th:text="${room.name}"></span></h1>
+	<table>
+		<tr>
+			<td th:text="'Tên phòng: '" align="left"></td>
+			<td th:text="${room.name}"></td>
+		</tr>
+		<tr>
+			<td th:text="'Loại phòng: '" align="left"></td>
+			<td th:text="${room.type}"></td>
+		</tr>
+		<tr>
+			<td th:text="'Giá phòng: '" align="left"></td>
+			<td th:text="${room.price} + '/ngày'"></td>
+		</tr>
+		<tr>
+			<td th:text="'Chi tiết: '" align="left"></td>
+			<td th:if="${room.description}" th:text="${room.description}"></td>
+		</tr>
+	</table>
+	<button><a th:href="@{/room}" th:text="'Quay lại'"></a></button>
+	<button><a th:href="@{/booking/{id}(id=${room.id})}" th:text="'Đặt phòng'"></a></button>
+	</div>	
+</body>
